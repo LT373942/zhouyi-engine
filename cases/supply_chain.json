@@ -1,0 +1,45 @@
+{
+  "case": "新能源车供应链（情景推演：假想代工危机）",
+  "event": "先进制程芯片代工中断（情景推演，非历史事件）",
+  "modeling_notes": "情景推演案例。六维维度映射：链位(阳=链内核心/阴=外围配套)、战略(阳=逐利扩张/阴=稳健守成)、策略(阳=封闭排他/阴=开放协作)、产能(阳=紧张单点/阴=充裕多点)、可见度(阳=环节盲区/阴=透明可见)、周期(阳=上行/阴=下行)。实体属性按行业公开常识建模；断裂集为情景设定：代工危机下功能失效的实体。",
+  "dims": [
+    {"name": "链位", "yang": "链内核心", "yin": "外围配套"},
+    {"name": "战略", "yang": "逐利扩张", "yin": "稳健守成"},
+    {"name": "策略", "yang": "封闭排他", "yin": "开放协作"},
+    {"name": "产能", "yang": "紧张单点", "yin": "充裕多点"},
+    {"name": "可见度", "yang": "环节盲区", "yin": "透明可见"},
+    {"name": "周期", "yang": "上行", "yin": "下行"}
+  ],
+  "entities": [
+    {"id": "S1", "name": "恒驰汽车(整车厂)", "values": ["yang", "yang", "yang", "yang", "yang", "yang"]},
+    {"id": "S2", "name": "芯格半导体(主控SoC独供)", "values": ["yang", "yin", "yin", "yin", "yin", "yang"]},
+    {"id": "S3", "name": "锂业(电池级锂盐)", "values": ["yang", "yin", "yin", "yin", "yin", "yang"]},
+    {"id": "S4", "name": "电池Pack厂", "values": ["yin", "yang", "yin", "yang", "yin", "yang"]},
+    {"id": "S5", "name": "新核科技(电机电控)", "values": ["yin", "yin", "yin", "yin", "yin", "yin"]},
+    {"id": "S6", "name": "座舱域控(二线)", "values": ["yin", "yin", "yang", "yang", "yin", "yang"]},
+    {"id": "S7", "name": "线束供应", "values": ["yin", "yin", "yin", "yang", "yang", "yin"]},
+    {"id": "S8", "name": "汽车玻璃", "values": ["yin", "yang", "yin", "yang", "yang", "yin"]},
+    {"id": "S9", "name": "轮胎供应", "values": ["yin", "yin", "yang", "yin", "yang", "yin"]},
+    {"id": "S10", "name": "物流海运", "values": ["yin", "yang", "yang", "yin", "yin", "yang"]},
+    {"id": "S11", "name": "经销商网络", "values": ["yang", "yang", "yin", "yang", "yang", "yin"]},
+    {"id": "S12", "name": "充电网络", "values": ["yang", "yin", "yang", "yin", "yang", "yang"]},
+    {"id": "S13", "name": "车规MCU二源", "values": ["yang", "yang", "yin", "yin", "yang", "yang"]},
+    {"id": "S14", "name": "功率半导体(IGBT独供)", "values": ["yang", "yin", "yin", "yin", "yin", "yang"]},
+    {"id": "S15", "name": "智能驾驶算法商", "values": ["yang", "yang", "yang", "yin", "yin", "yang"]},
+    {"id": "S16", "name": "存储芯片(独供)", "values": ["yang", "yin", "yin", "yang", "yin", "yang"]},
+    {"id": "S17", "name": "封测二源", "values": ["yin", "yang", "yin", "yin", "yang", "yang"]},
+    {"id": "S18", "name": "芯片代工(先进制程)", "values": ["yang", "yang", "yang", "yang", "yin", "yang"]},
+    {"id": "S19", "name": "海外锂矿", "values": ["yang", "yin", "yin", "yin", "yang", "yin"]}
+  ],
+  "relations": [
+    {"a": "S2", "op": "互", "b": "S5", "note": "建模时已声明：芯格与电机电控的内在牵连"}
+  ],
+  "dependencies": [
+    ["S2", "S18"], ["S13", "S18"], ["S14", "S18"], ["S16", "S18"],
+    ["S1", "S2"], ["S1", "S14"], ["S15", "S2"],
+    ["S4", "S3"], ["S3", "S19"]
+  ],
+  "seeds": ["S18"],
+  "fracture": ["S2", "S3", "S14", "S13", "S16", "S1", "S15"],
+  "fracture_notes": "代工危机情景：S2/S14/S16(独供芯片)直接失效；S13(二源)因共享代工同时失效；S1/S15经依赖链波及；S3(锂业)与S2/S14构成同构共振群，在全面紧张中同步失势。"
+}

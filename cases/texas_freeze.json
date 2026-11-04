@@ -1,0 +1,37 @@
+{
+  "case": "德州寒潮（2021 年 2 月 Uri 风暴回测）",
+  "event": "2021 年 2 月极端寒潮袭击得克萨斯州",
+  "modeling_notes": "历史回测案例。以事发前公开信息建模：德州电网(ERCOT)孤立运行、天然气井口与管道无防寒投资、风电无低温包、基建成本优先，均为 2011 年寒潮官方报告(FERC/NERC 2011)已指出而事发前未整改的公开事实。断裂集为事后公开事实：天然气减产、燃气电厂停机、ERCOT 轮流停电、风机结冰停机、供水中断、炼化停产、零售电商 Griddy 破产。",
+  "dims": [
+    {"name": "链位", "yang": "关键主干", "yin": "末端负荷"},
+    {"name": "战略", "yang": "成本优先", "yin": "冗余优先"},
+    {"name": "策略", "yang": "孤立运行", "yin": "互联互备"},
+    {"name": "冗余", "yang": "单点", "yin": "多点"},
+    {"name": "可见度", "yang": "盲区", "yin": "透明"},
+    {"name": "暴露", "yang": "气候敏感", "yin": "气候鲁棒"}
+  ],
+  "entities": [
+    {"id": "T1", "name": "ERCOT电网", "values": ["yang", "yang", "yin", "yang", "yang", "yang"]},
+    {"id": "T2", "name": "天然气(井口+管道)", "values": ["yang", "yang", "yin", "yang", "yang", "yang"]},
+    {"id": "T3", "name": "风电", "values": ["yang", "yang", "yin", "yang", "yang", "yang"]},
+    {"id": "T4", "name": "燃气火电", "values": ["yang", "yang", "yin", "yang", "yin", "yang"]},
+    {"id": "T5", "name": "煤电", "values": ["yang", "yang", "yang", "yin", "yin", "yang"]},
+    {"id": "T6", "name": "核电", "values": ["yang", "yin", "yin", "yin", "yin", "yin"]},
+    {"id": "T7", "name": "供水系统", "values": ["yang", "yang", "yin", "yang", "yang", "yang"]},
+    {"id": "T8", "name": "医院", "values": ["yin", "yin", "yin", "yin", "yin", "yin"]},
+    {"id": "T9", "name": "炼化化工", "values": ["yang", "yang", "yin", "yin", "yang", "yang"]},
+    {"id": "T10", "name": "通信网络", "values": ["yin", "yang", "yin", "yin", "yin", "yang"]},
+    {"id": "T11", "name": "零售电力商(Griddy)", "values": ["yin", "yang", "yin", "yang", "yang", "yang"]},
+    {"id": "T12", "name": "交通系统", "values": ["yin", "yin", "yang", "yin", "yang", "yang"]},
+    {"id": "T13", "name": "数据中心", "values": ["yin", "yin", "yin", "yang", "yin", "yang"]}
+  ],
+  "relations": [],
+  "dependencies": [
+    ["T4", "T2"], ["T9", "T2"],
+    ["T1", "T4"], ["T1", "T5"], ["T1", "T6"], ["T1", "T3"],
+    ["T7", "T1"], ["T8", "T1"], ["T10", "T1"], ["T11", "T1"], ["T12", "T1"], ["T13", "T1"]
+  ],
+  "seeds": ["T2"],
+  "fracture": ["T1", "T2", "T3", "T4", "T7", "T9", "T11"],
+  "fracture_notes": "种子为天然气（寒潮冻结气井，事件直接受击点）。风电(T3)不经依赖链而经共振机制断裂：与 T1/T2/T7 同属气候敏感同构群。"
+}
