@@ -125,5 +125,26 @@ class TestMetrics(unittest.TestCase):
         self.assertAlmostEqual(zscore(3.0, [1.0, 2.0, 3.0, 4.0, 5.0]), 0.0)
 
 
+class TestPartialClusters(unittest.TestCase):
+    def test_20_partial_clusters_recovers_none_case(self):
+        # 三实体在 5 维上同构、第 6 维留白：全卦聚类失效，部分同构应检出
+        case = mk_case([
+            ent("A", [1, 1, 0, 0, 1, None]),
+            ent("B", [1, 1, 0, 0, 1, None]),
+            ent("C", [1, 1, 0, 0, 1, None]),
+            ent("D", [0, 0, 1, 1, 0, 1]),
+        ])
+        self.assertEqual(engine.clusters(case), {})
+        pc = engine.partial_clusters(case, min_dims=5, min_size=3)
+        self.assertEqual(list(pc.keys()), [("A", "B", "C")])
+        self.assertEqual(pc[("A", "B", "C")]["dims"], [0, 1, 2, 3, 4])
+
+    def test_21_partial_clusters_prefers_full_dims(self):
+        # 三实体六维全同：应优先报告完整 6 维刻画而非子集
+        case = mk_case([ent(x, [1, 1, 0, 0, 1, 1]) for x in "ABC"])
+        pc = engine.partial_clusters(case, min_dims=5, min_size=3)
+        self.assertEqual(pc[("A", "B", "C")]["dims"], [0, 1, 2, 3, 4, 5])
+
+
 if __name__ == "__main__":
     unittest.main()

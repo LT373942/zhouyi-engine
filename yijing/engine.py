@@ -124,6 +124,38 @@ def clusters(case, min_size=3):
     return {g: sorted(v) for g, v in groups.items() if len(v) >= min_size}
 
 
+def partial_clusters(case, min_dims=5, min_size=3):
+    """部分同构群（维度子集聚类）：治"未定爻悖论"。
+
+    对每个维度数 ≥ min_dims 的维度子集，将在该子集上全部已定且取值相同的实体聚为一簇，
+    报告规模 ≥ min_size 的簇。为避免组合爆炸式重复，按成员集去重：同一成员集只保留
+    维度数最大的那个子集。返回 {成员集键: {"dims": [...], "members": [...], "values": [...]}}。
+    """
+    from itertools import combinations
+
+    gmap = gua_map(case)
+    ids = [e["id"] for e in case["entities"]]
+    n = len(gmap[ids[0]])
+    out = {}
+    # 从最大维度子集向下遍历：同一成员集保留信息最全（维度最多）的刻画
+    for size in range(n, min_dims - 1, -1):
+        for subset in combinations(range(n), size):
+            groups = {}
+            for eid in ids:
+                vals = [gmap[eid][i] for i in subset]
+                if any(v is None for v in vals):
+                    continue
+                groups.setdefault(tuple(vals), []).append(eid)
+            for vals, members in groups.items():
+                if len(members) < min_size:
+                    continue
+                key = tuple(sorted(members))
+                if key not in out:
+                    out[key] = {"dims": list(subset), "members": sorted(members),
+                                "values": list(vals)}
+    return out
+
+
 def profile(case):
     """传导性画像：每实体的依赖入/出度与作为种子的波及规模；案例级 T = 断裂集中可被传导解释的比例。"""
     deps = case.get("dependencies", [])
