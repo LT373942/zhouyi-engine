@@ -1,0 +1,36 @@
+{
+  "case": "全球缺芯潮（2020-2022 回测）",
+  "event": "疫情需求反弹叠加供给冲击（瑞萨火灾、德州寒潮）导致的芯片短缺",
+  "modeling_notes": "历史回测案例。以 2020 年初前公开信息建模：瑞萨为车规MCU主供（那珂厂）、台积电为先进制程独供且优先消费电子大客户、车厂与Tier1普遍JIT低库存、丰田因福岛教训保有芯片安全库存（2021年中耗尽后仍被迫减产）——均为公开资料。断裂集为事后公开事实（以严重减产/停产计）：瑞萨(火灾停产)、三星奥斯汀厂(2021寒潮停产，与德州案例联动)、博世/大陆(产线被迫中断)、丰田(2021-09减产约40%)、福特(F-150停产数周)、通用(多厂停产)。恩智浦/英飞凌（分配供货、营收大增）、苹果（延期未停产）、PS5/显卡（缺货但需求过剩）、台积电（满产）为对照。",
+  "dims": [
+    {"name": "供应地位", "yang": "车规芯片独供/主供", "yin": "多源商品"},
+    {"name": "需求侧", "yang": "消费电子(居家需求)", "yin": "其他"},
+    {"name": "库存策略", "yang": "JIT极低库存", "yin": "安全库存"},
+    {"name": "产能弹性", "yang": "满载无弹性", "yin": "有冗余"},
+    {"name": "优先级", "yang": "车规被代工厂排后", "yin": "消费优先/自有产线"},
+    {"name": "产能集中", "yang": "依赖少数厂", "yin": "分散"}
+  ],
+  "entities": [
+    {"id": "C1", "name": "瑞萨电子(那珂厂)", "values": ["yang", "yin", "yang", "yang", "yang", "yang"]},
+    {"id": "C2", "name": "台积电", "values": ["yang", "yin", "yang", "yang", "yin", "yang"]},
+    {"id": "C3", "name": "恩智浦", "values": ["yang", "yin", "yang", "yin", "yang", "yang"]},
+    {"id": "C4", "name": "英飞凌", "values": ["yang", "yin", "yang", "yin", "yang", "yang"]},
+    {"id": "C5", "name": "博世(Tier1)", "values": ["yin", "yin", "yang", "yin", "yang", "yang"]},
+    {"id": "C6", "name": "大陆集团(Tier1)", "values": ["yin", "yin", "yang", "yin", "yang", "yang"]},
+    {"id": "C7", "name": "丰田", "values": ["yin", "yin", "yin", "yin", "yang", "yin"]},
+    {"id": "C8", "name": "福特", "values": ["yin", "yin", "yang", "yin", "yang", "yang"]},
+    {"id": "C9", "name": "通用", "values": ["yin", "yin", "yang", "yin", "yang", "yang"]},
+    {"id": "C10", "name": "苹果", "values": ["yin", "yang", "yin", "yang", "yin", "yang"]},
+    {"id": "C11", "name": "PS5/显卡供应链", "values": ["yin", "yang", "yin", "yang", "yin", "yang"]},
+    {"id": "C12", "name": "三星奥斯汀厂", "values": ["yang", "yang", "yang", "yang", "yin", "yang"]}
+  ],
+  "relations": [],
+  "dependencies": [
+    ["C5", "C1"], ["C6", "C1"], ["C7", "C1"], ["C8", "C1"], ["C9", "C1"],
+    ["C5", "C3"], ["C8", "C3"], ["C9", "C4"],
+    ["C10", "C2"], ["C11", "C2"], ["C3", "C2"]
+  ],
+  "seeds": ["C1", "C12"],
+  "fracture": ["C1", "C5", "C6", "C7", "C8", "C9", "C12"],
+  "fracture_notes": "种子为双重供给冲击直接受击实体：瑞萨那珂（2021-03火灾）与三星奥斯汀（2021-02寒潮，与 texas_freeze 案例跨案例联动）。断裂定义 = 严重减产/停产（非破产）。"
+}

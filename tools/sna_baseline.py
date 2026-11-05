@@ -122,10 +122,13 @@ def framework_signals(case):
     return out
 
 
+CASES = ["supply_chain", "nokia", "texas_freeze", "fukushima", "financial_2008",
+         "film_digital", "blockbuster", "chip_shortage"]
+
 if __name__ == "__main__":
     out = {}
-    for path in ["cases/supply_chain.json", "cases/nokia.json", "cases/texas_freeze.json"]:
-        case = engine.load_case(os.path.join(ROOT, path))
+    for c in CASES:
+        case = engine.load_case(os.path.join(ROOT, f"cases/{c}.json"))
         out[case["case"]] = evaluate(case)
         out[case["case"]]["framework"] = framework_signals(case)
         print("=" * 60)

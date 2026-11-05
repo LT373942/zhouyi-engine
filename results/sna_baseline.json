@@ -220,5 +220,353 @@
         "recall": 1.0
       }
     }
+  },
+  "福岛地震供应链（2011-03-11 回测）": {
+    "depended_by": {
+      "picked": [
+        "F1",
+        "F12",
+        "F2",
+        "F3",
+        "F4"
+      ],
+      "precision": 0.8,
+      "recall": 0.5
+    },
+    "pagerank": {
+      "picked": [
+        "F1",
+        "F10",
+        "F11",
+        "F12",
+        "F13",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8",
+        "F9"
+      ],
+      "precision": 0.615,
+      "recall": 1.0
+    },
+    "betweenness": {
+      "picked": [
+        "F2",
+        "F4"
+      ],
+      "precision": 1.0,
+      "recall": 0.25
+    },
+    "framework": {
+      "isomorphism": {
+        "picked": [
+          "F10",
+          "F5",
+          "F6",
+          "F9"
+        ],
+        "precision": 0.75,
+        "recall": 0.375
+      },
+      "cascade": {
+        "picked": [
+          "F10",
+          "F5",
+          "F6",
+          "F7"
+        ],
+        "precision": 0.75,
+        "recall": 0.375
+      },
+      "combined": {
+        "picked": [
+          "F10",
+          "F5",
+          "F6",
+          "F7",
+          "F9"
+        ],
+        "precision": 0.6,
+        "recall": 0.375
+      }
+    }
+  },
+  "2008 金融危机（2007-09 回测）": {
+    "depended_by": {
+      "picked": [
+        "G1",
+        "G11",
+        "G13",
+        "G9"
+      ],
+      "precision": 0.75,
+      "recall": 0.375
+    },
+    "pagerank": {
+      "picked": [
+        "G1",
+        "G10",
+        "G11",
+        "G12",
+        "G13",
+        "G14",
+        "G15",
+        "G2",
+        "G3",
+        "G4",
+        "G5",
+        "G6",
+        "G7",
+        "G8",
+        "G9"
+      ],
+      "precision": 0.533,
+      "recall": 1.0
+    },
+    "betweenness": {
+      "picked": [
+        "G1",
+        "G11"
+      ],
+      "precision": 1.0,
+      "recall": 0.25
+    },
+    "framework": {
+      "isomorphism": {
+        "picked": [
+          "G1",
+          "G2",
+          "G3",
+          "G4",
+          "G5",
+          "G6"
+        ],
+        "precision": 0.667,
+        "recall": 0.5
+      },
+      "cascade": {
+        "picked": [
+          "G1",
+          "G11",
+          "G14",
+          "G2",
+          "G3",
+          "G6"
+        ],
+        "precision": 0.833,
+        "recall": 0.625
+      },
+      "combined": {
+        "picked": [
+          "G1",
+          "G11",
+          "G14",
+          "G2",
+          "G3",
+          "G4",
+          "G5",
+          "G6"
+        ],
+        "precision": 0.625,
+        "recall": 0.625
+      }
+    }
+  },
+  "数码摄影颠覆胶卷（2000-2012 回测）": {
+    "depended_by": {
+      "picked": [
+        "H1"
+      ],
+      "precision": 1.0,
+      "recall": 0.2
+    },
+    "pagerank": {
+      "picked": [
+        "H1",
+        "H10",
+        "H11",
+        "H12",
+        "H13",
+        "H2",
+        "H3",
+        "H4",
+        "H5",
+        "H6",
+        "H7",
+        "H8",
+        "H9"
+      ],
+      "precision": 0.385,
+      "recall": 1.0
+    },
+    "betweenness": {
+      "picked": [],
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "framework": {
+      "isomorphism": {
+        "picked": [
+          "H1",
+          "H3",
+          "H4"
+        ],
+        "precision": 1.0,
+        "recall": 0.6
+      },
+      "cascade": {
+        "picked": [
+          "H10",
+          "H11",
+          "H9"
+        ],
+        "precision": 0.667,
+        "recall": 0.4
+      },
+      "combined": {
+        "picked": [
+          "H1",
+          "H10",
+          "H11",
+          "H3",
+          "H4",
+          "H9"
+        ],
+        "precision": 0.833,
+        "recall": 1.0
+      }
+    }
+  },
+  "流媒体颠覆实体租赁（2000-2010 回测）": {
+    "depended_by": {
+      "picked": [
+        "B1",
+        "B7"
+      ],
+      "precision": 0.5,
+      "recall": 0.2
+    },
+    "pagerank": {
+      "picked": [
+        "B1",
+        "B11",
+        "B12",
+        "B2",
+        "B3",
+        "B4",
+        "B5",
+        "B6",
+        "B9"
+      ],
+      "precision": 0.556,
+      "recall": 1.0
+    },
+    "betweenness": {
+      "picked": [
+        "B1"
+      ],
+      "precision": 1.0,
+      "recall": 0.2
+    },
+    "framework": {
+      "isomorphism": {
+        "picked": [
+          "B1",
+          "B2",
+          "B3"
+        ],
+        "precision": 1.0,
+        "recall": 0.6
+      },
+      "cascade": {
+        "picked": [
+          "B11",
+          "B12"
+        ],
+        "precision": 0.5,
+        "recall": 0.2
+      },
+      "combined": {
+        "picked": [
+          "B1",
+          "B11",
+          "B12",
+          "B2",
+          "B3"
+        ],
+        "precision": 0.8,
+        "recall": 0.8
+      }
+    }
+  },
+  "全球缺芯潮（2020-2022 回测）": {
+    "depended_by": {
+      "picked": [
+        "C1",
+        "C2",
+        "C3",
+        "C4"
+      ],
+      "precision": 0.25,
+      "recall": 0.143
+    },
+    "pagerank": {
+      "picked": [
+        "C10",
+        "C11",
+        "C3",
+        "C5",
+        "C6",
+        "C7",
+        "C8",
+        "C9"
+      ],
+      "precision": 0.625,
+      "recall": 0.714
+    },
+    "betweenness": {
+      "picked": [
+        "C3"
+      ],
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "framework": {
+      "isomorphism": {
+        "picked": [
+          "C5",
+          "C6",
+          "C8",
+          "C9"
+        ],
+        "precision": 1.0,
+        "recall": 0.571
+      },
+      "cascade": {
+        "picked": [
+          "C5",
+          "C6",
+          "C7",
+          "C8",
+          "C9"
+        ],
+        "precision": 1.0,
+        "recall": 0.714
+      },
+      "combined": {
+        "picked": [
+          "C5",
+          "C6",
+          "C7",
+          "C8",
+          "C9"
+        ],
+        "precision": 1.0,
+        "recall": 0.714
+      }
+    }
   }
 }

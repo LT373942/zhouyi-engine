@@ -1,0 +1,39 @@
+{
+  "case": "福岛地震供应链（2011-03-11 回测）",
+  "event": "东日本大地震及海啸",
+  "modeling_notes": "历史回测案例。以事发前公开信息建模：瑞萨那珂厂为全球车规MCU主供、信越白川厂为全球硅晶圆主供、日立化成茨城厂为车用电池隔膜主供、东电福岛核电站为灾区电网主干、全球汽车产业JIT低库存——均为公开行业常识。断裂集为事后公开事实（生产中断/显著减产）：东电(核事故)、瑞萨、信越白川、日立化成、丰田(4月减产50%)、日产、美国车厂(通用福特停产部分产线)、震区港口物流。博世为受影响但未功能性失效的对照。",
+  "dims": [
+    {"name": "区位", "yang": "震区/灾区内", "yin": "区外"},
+    {"name": "能源依赖", "yang": "依赖灾区电网", "yin": "自备/区外电网"},
+    {"name": "供应角色", "yang": "关键部件独供/主供", "yin": "可替代多源"},
+    {"name": "备援", "yang": "生产单点", "yin": "多地生产"},
+    {"name": "库存缓冲", "yang": "低库存JIT", "yin": "有库存缓冲"},
+    {"name": "客户集中", "yang": "少数大客户", "yin": "客户分散"}
+  ],
+  "entities": [
+    {"id": "F1", "name": "东京电力(福岛核电)", "values": ["yang", "yin", "yang", "yang", "yang", "yin"]},
+    {"id": "F2", "name": "瑞萨电子(那珂厂)", "values": ["yang", "yang", "yang", "yang", "yang", "yang"]},
+    {"id": "F3", "name": "信越化学(白川厂)", "values": ["yang", "yang", "yang", "yang", "yang", "yin"]},
+    {"id": "F4", "name": "日立化成(茨城厂)", "values": ["yang", "yang", "yang", "yang", "yang", "yang"]},
+    {"id": "F5", "name": "丰田", "values": ["yin", "yin", "yin", "yin", "yang", "yin"]},
+    {"id": "F6", "name": "日产", "values": ["yin", "yin", "yin", "yin", "yang", "yin"]},
+    {"id": "F7", "name": "索尼(传感器/电池)", "values": ["yang", "yang", "yin", "yin", "yang", "yang"]},
+    {"id": "F8", "name": "村田制作所(宫城厂)", "values": ["yang", "yang", "yin", "yang", "yang", "yang"]},
+    {"id": "F9", "name": "博世(Tier1对照)", "values": ["yin", "yin", "yin", "yin", "yang", "yin"]},
+    {"id": "F10", "name": "美国车厂(通用)", "values": ["yin", "yin", "yin", "yin", "yang", "yin"]},
+    {"id": "F11", "name": "SUMCO(硅晶圆二源)", "values": ["yin", "yin", "yang", "yin", "yin", "yin"]},
+    {"id": "F12", "name": "电装(丰田系Tier1)", "values": ["yin", "yin", "yin", "yin", "yang", "yang"]},
+    {"id": "F13", "name": "震区港口物流", "values": ["yang", "yang", "yang", "yang", "yin", "yin"]}
+  ],
+  "relations": [],
+  "dependencies": [
+    ["F2", "F1"], ["F4", "F1"], ["F7", "F1"], ["F13", "F1"],
+    ["F5", "F2"], ["F6", "F2"], ["F10", "F2"],
+    ["F2", "F3"], ["F7", "F3"],
+    ["F5", "F4"], ["F6", "F4"],
+    ["F5", "F12"]
+  ],
+  "seeds": ["F1", "F2", "F3", "F4", "F13"],
+  "fracture": ["F1", "F2", "F3", "F4", "F5", "F6", "F10", "F13"],
+  "fracture_notes": "种子为地震海啸直接受击实体（核电、那珂厂、白川厂、茨城厂、震区港口）。本案例断裂以直接冲击为主，传导覆盖区外整车厂。"
+}

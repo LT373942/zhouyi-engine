@@ -1,0 +1,35 @@
+{
+  "case": "数码摄影颠覆胶卷（2000-2012 回测）",
+  "event": "数码摄影技术成熟与消费普及",
+  "modeling_notes": "历史回测案例。以 2000 年前后公开信息建模：柯达为全球胶卷霸主（耗材收入为主、专用涂布产线、冲印渠道）、爱克发消费影像与宝丽来即时成像同为化学成像耗材模式、富士转型材料多元化较早、佳能索尼为数码阵营先锋——均为公开年报与行业资料可查。断裂集为事后公开事实：宝丽来(2001破产)、爱克发消费影像(2004出售)、柯达(2012破产重组)、冲印店网络(行业性大量消亡)、胶片分销体系(消亡)。富士(转型医疗/液晶材料)、乐凯(合资+军工材料)、尼康(受创存续)为对照。",
+  "dims": [
+    {"name": "范式", "yang": "化学成像(胶卷)", "yin": "电子成像"},
+    {"name": "收入结构", "yang": "依赖耗材(胶卷/相纸)", "yin": "设备/服务收入"},
+    {"name": "转型速度", "yang": "转型迟缓", "yin": "快速转型"},
+    {"name": "资产专用性", "yang": "专用资产(涂布产线)", "yin": "通用资产"},
+    {"name": "渠道依赖", "yang": "依赖冲印渠道", "yin": "多元渠道"},
+    {"name": "财务缓冲", "yang": "承压", "yin": "雄厚"}
+  ],
+  "entities": [
+    {"id": "H1", "name": "柯达", "values": ["yang", "yang", "yang", "yang", "yang", "yang"]},
+    {"id": "H2", "name": "富士", "values": ["yang", "yang", "yin", "yang", "yang", "yin"]},
+    {"id": "H3", "name": "爱克发(消费影像)", "values": ["yang", "yang", "yang", "yang", "yang", "yang"]},
+    {"id": "H4", "name": "宝丽来", "values": ["yang", "yang", "yang", "yang", "yang", "yang"]},
+    {"id": "H5", "name": "乐凯", "values": ["yang", "yang", "yang", "yang", "yin", "yin"]},
+    {"id": "H6", "name": "尼康", "values": ["yang", "yin", "yin", "yin", "yin", "yin"]},
+    {"id": "H7", "name": "佳能", "values": ["yin", "yin", "yin", "yin", "yin", "yin"]},
+    {"id": "H8", "name": "索尼(影像)", "values": ["yin", "yin", "yin", "yin", "yin", "yin"]},
+    {"id": "H9", "name": "冲印店网络", "values": ["yin", "yang", "yang", "yin", "yin", "yang"]},
+    {"id": "H10", "name": "胶片分销体系", "values": ["yin", "yang", "yang", "yin", "yang", "yang"]},
+    {"id": "H11", "name": "胶片化学品供应商", "values": ["yin", "yang", "yang", "yang", "yang", "yang"]},
+    {"id": "H12", "name": "专业电影胶片", "values": ["yang", "yin", "yang", "yang", "yin", "yin"]},
+    {"id": "H13", "name": "医疗X光胶片", "values": ["yang", "yin", "yin", "yang", "yin", "yin"]}
+  ],
+  "relations": [],
+  "dependencies": [
+    ["H9", "H1"], ["H10", "H1"], ["H11", "H1"]
+  ],
+  "seeds": ["H1"],
+  "fracture": ["H1", "H3", "H4", "H9", "H10"],
+  "fracture_notes": "种子为柯达（数码浪潮击穿胶卷霸主的耗材基本盘）。化学成像耗材三连（柯达/爱克发/宝丽来）为共振群；冲印店与分销经依赖链消亡；化学品供应商转产存续。"
+}

@@ -1,0 +1,36 @@
+{
+  "case": "流媒体颠覆实体租赁（2000-2010 回测）",
+  "event": "Netflix 订阅制与流媒体模式崛起",
+  "modeling_notes": "历史回测案例。以 2000 年前后公开信息建模：百视达为实体租赁霸主（逾期费收入占比高、门店重资产、高杠杆）、Movie Gallery 与 Hollywood Video 同构、Netflix 为邮购DVD转订阅制先锋（2000 年曾提出被百视达收购被拒）、制片厂依赖 DVD 窗口期收入——均为公开资料。断裂集为事后公开事实：百视达(2010破产)、Movie Gallery(2010破产)、Hollywood Video(2010清算)、地区租赁店(行业消亡)、百视达加盟店(随体系崩溃)。Redbox(租赁亭轻资产)与 Netflix/ iTunes/有线VOD 存续。",
+  "dims": [
+    {"name": "范式", "yang": "实体门店租赁", "yin": "流媒体/订阅"},
+    {"name": "收入结构", "yang": "依赖单次租赁/逾期费", "yin": "订阅制/多元"},
+    {"name": "资产", "yang": "门店重资产", "yin": "轻资产"},
+    {"name": "转型速度", "yang": "迟缓", "yin": "快速"},
+    {"name": "杠杆", "yang": "高杠杆", "yin": "低杠杆"},
+    {"name": "内容依赖", "yang": "依赖DVD窗口期/片库授权", "yin": "自制/多元"}
+  ],
+  "entities": [
+    {"id": "B1", "name": "百视达", "values": ["yang", "yang", "yang", "yang", "yang", "yang"]},
+    {"id": "B2", "name": "Movie Gallery", "values": ["yang", "yang", "yang", "yang", "yang", "yang"]},
+    {"id": "B3", "name": "Hollywood Video", "values": ["yang", "yang", "yang", "yang", "yang", "yang"]},
+    {"id": "B4", "name": "地区租赁店", "values": ["yang", "yin", "yang", "yang", "yin", "yang"]},
+    {"id": "B5", "name": "Netflix", "values": ["yin", "yin", "yin", "yin", "yin", "yang"]},
+    {"id": "B6", "name": "Redbox(租赁亭)", "values": ["yang", "yang", "yin", "yin", "yin", "yin"]},
+    {"id": "B7", "name": "好莱坞制片厂", "values": ["yin", "yang", "yin", "yang", "yin", "yin"]},
+    {"id": "B8", "name": "有线VOD", "values": ["yin", "yin", "yin", "yin", "yin", "yin"]},
+    {"id": "B9", "name": "苹果iTunes", "values": ["yin", "yin", "yin", "yin", "yin", "yang"]},
+    {"id": "B10", "name": "DVD零售通道", "values": ["yin", "yang", "yin", "yin", "yin", "yang"]},
+    {"id": "B11", "name": "百视达次级债持有人", "values": ["yin", "yin", "yin", "yin", "yang", "yin"]},
+    {"id": "B12", "name": "百视达加盟店", "values": ["yang", "yang", "yang", "yang", "yin", "yang"]}
+  ],
+  "relations": [],
+  "dependencies": [
+    ["B1", "B7"], ["B2", "B7"], ["B3", "B7"], ["B4", "B7"],
+    ["B5", "B7"], ["B6", "B7"], ["B9", "B7"],
+    ["B12", "B1"], ["B11", "B1"]
+  ],
+  "seeds": ["B1"],
+  "fracture": ["B1", "B2", "B3", "B4", "B12"],
+  "fracture_notes": "种子为百视达（订阅制/流媒体击穿单次租赁模式的核心承载者）。实体租赁三连（百视达/Movie Gallery/Hollywood Video）为共振群；加盟店经依赖链崩溃。纯共振型案例：传导链短。"
+}

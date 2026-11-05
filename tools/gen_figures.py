@@ -10,10 +10,14 @@ import os
 import sys
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
+sys.path.insert(0, os.path.normpath(ROOT))
+from yijing import engine
+
 OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.normpath(os.path.join(ROOT, "..", "论文", "图"))
 os.makedirs(OUT, exist_ok=True)
 
 RES = json.load(open(os.path.join(ROOT, "results", "backtest_results.json"), encoding="utf-8"))
+RES = {k: v for k, v in RES.items() if not k.startswith("_")}
 
 FONT = "font-family='SimSun,serif'"
 BLUE = "#2f6fb2"
@@ -93,38 +97,58 @@ def fig2():
 
 
 # ---------- 图 3：M2′ 真实 vs 随机基线 ----------
-BASELINE = {"新能源车供应链（情景推演：假想代工危机）": 0.316,
-            "诺基亚代际更替（2007 iPhone 发布回测）": 0.211,
-            "德州寒潮（2021 年 2 月 Uri 风暴回测）": 0.693}
+import random
+
+CASE_KEYS = ["supply_chain", "nokia", "texas_freeze", "fukushima", "financial_2008",
+             "film_digital", "blockbuster", "chip_shortage"]
 LABEL = {"新能源车供应链（情景推演：假想代工危机）": "供应链",
          "诺基亚代际更替（2007 iPhone 发布回测）": "诺基亚",
-         "德州寒潮（2021 年 2 月 Uri 风暴回测）": "德州寒潮"}
+         "德州寒潮（2021 年 2 月 Uri 风暴回测）": "德州寒潮",
+         "福岛地震供应链（2011-03-11 回测）": "福岛",
+         "2008 金融危机（2007-09 回测）": "金融危机",
+         "数码摄影颠覆胶卷（2000-2012 回测）": "胶卷→数码",
+         "流媒体颠覆实体租赁（2000-2010 回测）": "实体租赁",
+         "全球缺芯潮（2020-2022 回测）": "缺芯潮"}
+
+
+def _baseline_mean(case):
+    rng = random.Random(20261105)
+    uni = sorted(e["id"] for e in case["entities"])
+    fracture = set(case["fracture"])
+    closure = set(engine.cascade(case)["closure"]) - set(case["seeds"])
+    overlaps = []
+    for _ in range(1000):
+        pick = set(rng.sample(uni, len(closure)))
+        overlaps.append(len(pick & fracture) / len(fracture))
+    return sum(overlaps) / len(overlaps)
 
 
 def fig3():
     cases = list(RES.keys())
-    s = ["<svg xmlns='http://www.w3.org/2000/svg' width='640' height='320' viewBox='0 0 640 320'>",
-         f"<rect width='640' height='320' fill='white'/>"]
-    x0, y0, ph = 70, 270, 220  # 原点与绘图高
-    s.append(f"<line x1='{x0}' y1='{y0}' x2='600' y2='{y0}' stroke='{BLACK}'/>")
+    s = ["<svg xmlns='http://www.w3.org/2000/svg' width='760' height='320' viewBox='0 0 760 320'>",
+         f"<rect width='760' height='320' fill='white'/>"]
+    x0, y0, ph = 80, 270, 220
+    s.append(f"<line x1='{x0}' y1='{y0}' x2='720' y2='{y0}' stroke='{BLACK}'/>")
     s.append(f"<line x1='{x0}' y1='{y0}' x2='{x0}' y2='{y0-ph}' stroke='{BLACK}'/>")
     for v in (0.25, 0.5, 0.75, 1.0):
         yy = y0 - v * ph
-        s.append(f"<line x1='{x0}' y1='{yy}' x2='600' y2='{yy}' stroke='#e3e5e8'/>")
+        s.append(f"<line x1='{x0}' y1='{yy}' x2='720' y2='{yy}' stroke='#e3e5e8'/>")
         s.append(f"<text x='{x0-8}' y='{yy+4}' text-anchor='end' font-size='11' {FONT} fill='{GRAY}'>{v:.2f}</text>")
-    bw, grp = 42, 175
+    bw = 30
+    grp = (700 - x0) / len(cases)
     for i, c in enumerate(cases):
-        real, base = RES[c]["M2p"], BASELINE[c]
-        gx = x0 + 55 + i * grp
-        for j, (v, col, tag) in enumerate(((real, BLUE, "真实"), (base, GRAY, "基线"))):
+        case = engine.load_case(os.path.join(ROOT, "cases", CASE_KEYS[i] + ".json"))
+        real, base = RES[c]["M2p"], round(_baseline_mean(case), 3)
+        gx = x0 + 30 + i * grp
+        for j, (v, col) in enumerate(((real, BLUE), (base, GRAY))):
             h = v * ph
-            bx = gx + j * (bw + 8)
+            bx = gx + j * (bw + 5)
             s.append(f"<rect x='{bx}' y='{y0-h}' width='{bw}' height='{h}' fill='{col}'/>")
-            s.append(f"<text x='{bx+bw/2}' y='{y0-h-6}' text-anchor='middle' font-size='12' {FONT} fill='{BLACK}'>{v:.3f}</text>")
-        s.append(f"<text x='{gx+bw}' y='{y0+20}' text-anchor='middle' font-size='13' {FONT} fill='{BLACK}'>{LABEL[c]}</text>")
-    s.append(f"<rect x='430' y='40' width='12' height='12' fill='{BLUE}'/><text x='448' y='50' font-size='12' {FONT} fill='{BLACK}'>真实 M2′</text>")
-    s.append(f"<rect x='430' y='60' width='12' height='12' fill='{GRAY}'/><text x='448' y='70' font-size='12' {FONT} fill='{BLACK}'>随机基线均值（1000 次）</text>")
-    s.append(f"<text x='320' y='310' text-anchor='middle' font-size='11' {FONT} fill='{GRAY}'>德州案例基线偏高：闭包占实体总数 9/13，指标区分度下降（见 5.2、6.3 节）</text>")
+            s.append(f"<text x='{bx+bw/2}' y='{y0-h-6}' text-anchor='middle' font-size='10' {FONT} fill='{BLACK}'>{v:.2f}</text>")
+        s.append(f"<text x='{gx+bw}' y='{y0+20}' text-anchor='middle' font-size='12' {FONT} fill='{BLACK}'>{LABEL[c]}</text>")
+    s.append(f"<rect x='560' y='36' width='12' height='12' fill='{BLUE}'/><text x='577' y='46' font-size='12' {FONT} fill='{BLACK}'>真实 M2′</text>")
+    s.append(f"<rect x='560' y='56' width='12' height='12' fill='{GRAY}'/><text x='577' y='66' font-size='12' {FONT} fill='{BLACK}'>随机基线均值（1000 次）</text>")
+    s.append(f"<text x='380' y='308' text-anchor='middle' font-size='11' {FONT} fill='{GRAY}'>闭包不紧凑时（德州、福岛直接冲击型）级联召回区分度下降</text>")
     s.append("</svg>")
     return "".join(s)
 
@@ -132,26 +156,28 @@ def fig3():
 # ---------- 图 4：同构群分布 ----------
 def fig4():
     cases = list(RES.keys())
-    s = ["<svg xmlns='http://www.w3.org/2000/svg' width='640' height='300' viewBox='0 0 640 300'>",
-         f"<rect width='640' height='300' fill='white'/>"]
-    y = 30
+    H = 40 + len(cases) * 66
+    s = ["<svg xmlns='http://www.w3.org/2000/svg' width='760' "
+         f"height='{H}' viewBox='0 0 760 {H}'>",
+         f"<rect width='760' height='{H}' fill='white'/>"]
+    y = 20
     for c in cases:
         r = RES[c]
         names = r["gua_names"]
         cluster_members = set(m for v in r["clusters"].values() for m in v)
         cluster_name = list(r["clusters"].keys())[0]
-        s.append(f"<text x='20' y='{y+14}' font-size='13' {FONT} fill='{BLACK}'>{LABEL[c]}（{len(names)} 实体，同构群：{cluster_name}×{r['cluster_max_size']}，p={r['cluster_p']}）</text>")
+        s.append(f"<text x='20' y='{y+14}' font-size='12' {FONT} fill='{BLACK}'>{LABEL[c]}（{len(names)} 实体，{cluster_name}×{r['cluster_max_size']}，p={r['cluster_p']}）</text>")
         x = 20
         for eid in sorted(names):
             in_c = eid in cluster_members
             col = BLUE if in_c else "white"
             tc = "white" if in_c else GRAY
-            s.append(f"<rect x='{x}' y='{y+24}' width='26' height='26' rx='4' fill='{col}' stroke='{BLACK}' stroke-width='1'/>")
-            s.append(f"<text x='{x+13}' y='{y+41}' text-anchor='middle' font-size='9' {FONT} fill='{tc}'>{eid}</text>")
-            s.append(f"<text x='{x+13}' y='{y+62}' text-anchor='middle' font-size='9' {FONT} fill='{BLACK if in_c else GRAY}'>{names[eid]}</text>")
-            x += 30
-        y += 92
-    s.append(f"<rect x='480' y='14' width='12' height='12' fill='{BLUE}'/><text x='497' y='24' font-size='11' {FONT} fill='{BLACK}'>同构群成员</text>")
+            s.append(f"<rect x='{x}' y='{y+20}' width='24' height='24' rx='4' fill='{col}' stroke='{BLACK}' stroke-width='1'/>")
+            s.append(f"<text x='{x+12}' y='{y+36}' text-anchor='middle' font-size='9' {FONT} fill='{tc}'>{eid}</text>")
+            s.append(f"<text x='{x+12}' y='{y+56}' text-anchor='middle' font-size='9' {FONT} fill='{BLACK if in_c else GRAY}'>{names[eid]}</text>")
+            x += 28
+        y += 66
+    s.append(f"<rect x='640' y='8' width='12' height='12' fill='{BLUE}'/><text x='657' y='18' font-size='11' {FONT} fill='{BLACK}'>同构群成员</text>")
     s.append("</svg>")
     return "".join(s)
 

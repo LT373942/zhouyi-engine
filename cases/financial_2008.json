@@ -1,0 +1,41 @@
+{
+  "case": "2008 金融危机（2007-09 回测）",
+  "event": "美国房价下跌引发的次贷危机",
+  "modeling_notes": "历史回测案例。以 2007 年前公开信息建模：五大投行高杠杆+依赖回购/商业票据短期融资+重仓MBS、两房极低资本+巨额MBS担保敞口、AIG金融产品部出售大量CDS——均为事发前公开年报与监管文件可查。断裂集为事后公开事实：贝尔斯登(2008-03贱卖)、两房(2008-09接管)、雷曼(2008-09破产)、美林(2008-09被收购)、AIG(2008-09国有化救助)、华盛顿互惠(2008-09倒闭)、Reserve Primary Fund(2008-09破净值)。高盛/大摩/花旗/摩根大通为受损但存续的对照（高盛大摩转为银行控股公司，花旗获救助）。",
+  "dims": [
+    {"name": "杠杆", "yang": "高杠杆", "yin": "低杠杆"},
+    {"name": "融资结构", "yang": "依赖短期批发融资", "yin": "存款/稳定融资"},
+    {"name": "资产敞口", "yang": "MBS/CDO重仓", "yin": "低敞口"},
+    {"name": "监管地位", "yang": "受监管银行/GSE", "yin": "影子银行/表外"},
+    {"name": "互联性", "yang": "深度同业互联", "yin": "低互联"},
+    {"name": "资本缓冲", "yang": "资本紧张", "yin": "资本雄厚"}
+  ],
+  "entities": [
+    {"id": "G1", "name": "雷曼兄弟", "values": ["yang", "yang", "yang", "yin", "yang", "yang"]},
+    {"id": "G2", "name": "贝尔斯登", "values": ["yang", "yang", "yang", "yin", "yang", "yang"]},
+    {"id": "G3", "name": "美林", "values": ["yang", "yang", "yang", "yin", "yang", "yang"]},
+    {"id": "G4", "name": "高盛", "values": ["yang", "yang", "yang", "yin", "yang", "yang"]},
+    {"id": "G5", "name": "摩根士丹利", "values": ["yang", "yang", "yang", "yin", "yang", "yang"]},
+    {"id": "G6", "name": "AIG", "values": ["yang", "yang", "yang", "yin", "yang", "yang"]},
+    {"id": "G7", "name": "花旗集团", "values": ["yang", "yin", "yang", "yang", "yang", "yang"]},
+    {"id": "G8", "name": "华盛顿互惠", "values": ["yang", "yin", "yang", "yang", "yin", "yang"]},
+    {"id": "G9", "name": "房利美", "values": ["yang", "yang", "yang", "yang", "yang", "yang"]},
+    {"id": "G10", "name": "房地美", "values": ["yang", "yang", "yang", "yang", "yang", "yang"]},
+    {"id": "G11", "name": "货币市场基金(Reserve Primary)", "values": ["yin", "yang", "yang", "yang", "yin", "yang"]},
+    {"id": "G12", "name": "摩根大通(收购者)", "values": ["yin", "yin", "yang", "yang", "yang", "yin"]},
+    {"id": "G13", "name": "评级机构", "values": ["yin", "yin", "yang", "yin", "yin", "yin"]},
+    {"id": "G14", "name": "对冲基金", "values": ["yang", "yang", "yang", "yin", "yang", "yin"]},
+    {"id": "G15", "name": "美联储/财政部", "values": ["yin", "yin", "yin", "yang", "yang", "yin"]}
+  ],
+  "relations": [],
+  "dependencies": [
+    ["G1", "G9"], ["G2", "G9"], ["G3", "G9"],
+    ["G1", "G13"], ["G2", "G13"], ["G3", "G13"],
+    ["G6", "G9"],
+    ["G11", "G1"],
+    ["G14", "G11"]
+  ],
+  "seeds": ["G9", "G10"],
+  "fracture": ["G1", "G2", "G3", "G6", "G8", "G9", "G10", "G11"],
+  "fracture_notes": "种子为两房（房价下跌最先击穿其担保账本）。华盛顿互惠(G8)经存款挤兑路径断裂，未在本依赖网上——为断裂定义的粒度差异案例，如实保留。"
+}
