@@ -35,6 +35,9 @@ python -m yijing.cli backtest cases/texas_freeze.json
 - `cases/texas_freeze.json`：德州寒潮（2021 Uri），以 2011 年 FERC/NERC 官方报告等事发前公开信息建模；
 - `cases/supply_chain_llm_claims.json`：2026-11-05 由 LLM 会话生成的风险分析声明（用于适配层证伪演示）。
 
+盲法交叉验证：`protocol/` 下含盲法协议、两份事发前事实包与独立建模者的编码输出；
+比对结果见 `results/blind_validation.json`，由 `tools/blind_compare.py` 复算。
+
 各案例的维度映射、断裂集依据均写入文件内 `modeling_notes` / `fracture_notes` 字段。
 
 ## 指标定义

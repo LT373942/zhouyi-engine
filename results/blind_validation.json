@@ -1,0 +1,82 @@
+{
+  "nokia": {
+    "case": "nokia",
+    "exact_entity_match": "0/14",
+    "position_agree_rate": 0.8,
+    "blind_none_positions": 29,
+    "kappa": 0.59,
+    "diff_positions": [
+      "N2第1爻(我=0,盲=1)",
+      "N2第2爻(我=1,盲=0)",
+      "N3第1爻(我=1,盲=0)",
+      "N3第6爻(我=1,盲=0)",
+      "N4第6爻(我=1,盲=0)",
+      "N7第1爻(我=0,盲=1)",
+      "N8第1爻(我=0,盲=1)",
+      "N8第4爻(我=1,盲=0)",
+      "N12第5爻(我=1,盲=0)",
+      "N13第2爻(我=1,盲=0)",
+      "N14第1爻(我=1,盲=0)"
+    ],
+    "blind_clusters": {},
+    "blind_M1": 0.0,
+    "blind_M2": 0.0,
+    "blind_M2p": 0.143,
+    "blind_T": null,
+    "blind_predicted_fracture": [
+      "N1",
+      "N10",
+      "N13",
+      "N2",
+      "N3",
+      "N4",
+      "N5"
+    ],
+    "pred_precision": 1.0,
+    "pred_recall": 1.0,
+    "flagged_overlap": [],
+    "flagged_overlap_rate": 0.0
+  },
+  "texas": {
+    "case": "texas",
+    "exact_entity_match": "0/13",
+    "position_agree_rate": 0.75,
+    "blind_none_positions": 26,
+    "kappa": 0.5,
+    "diff_positions": [
+      "T1第3爻(我=0,盲=1)",
+      "T3第5爻(我=1,盲=0)",
+      "T7第1爻(我=1,盲=0)",
+      "T7第5爻(我=1,盲=0)",
+      "T9第1爻(我=1,盲=0)",
+      "T9第4爻(我=0,盲=1)",
+      "T9第5爻(我=1,盲=0)",
+      "T10第4爻(我=0,盲=1)",
+      "T11第3爻(我=0,盲=1)",
+      "T11第5爻(我=1,盲=0)",
+      "T12第4爻(我=0,盲=1)",
+      "T12第5爻(我=1,盲=0)",
+      "T13第4爻(我=1,盲=0)"
+    ],
+    "blind_clusters": {},
+    "blind_M1": 0.0,
+    "blind_M2": 0.0,
+    "blind_M2p": 0.286,
+    "blind_T": null,
+    "blind_predicted_fracture": [
+      "T1",
+      "T10",
+      "T11",
+      "T12",
+      "T2",
+      "T3",
+      "T4",
+      "T7",
+      "T9"
+    ],
+    "pred_precision": 0.778,
+    "pred_recall": 1.0,
+    "flagged_overlap": [],
+    "flagged_overlap_rate": 0.0
+  }
+}
