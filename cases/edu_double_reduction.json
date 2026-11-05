@@ -1,0 +1,36 @@
+{
+  "case": "双减监管冲击（2021-07 回测）",
+  "event": "2021 年 7 月 24 日\"双减\"政策落地",
+  "modeling_notes": "历史回测案例，事件类型为监管冲击（补齐案例类型多样性）。以政策发布前公开信息建模：头部机构K12学科培训收入占比、上市状态、融资依赖、营销获客成本结构均为公开年报与报道可查。断裂集为事后公开事实（以主业功能性失效计）：新东方/好未来(关停K9学科业务、营收暴跌转型)、高途(主业崩溃转型)、猿辅导/作业帮(业务收缩大规模裁员)、线下中小机构(倒闭潮)、教培SaaS供应商(主要客户群崩溃)。网易有道(硬件第二曲线存续)、教辅出版(受创存续)、职业教育(中性/受益)、广告平台(损失部分收入)为对照。",
+  "dims": [
+    {"name": "业务依赖", "yang": "K12学科培训为主业", "yin": "其他业务为主"},
+    {"name": "资本化", "yang": "上市/资本驱动", "yin": "非上市/内生"},
+    {"name": "转型储备", "yang": "无第二曲线", "yin": "有第二曲线"},
+    {"name": "政策敏感度", "yang": "高度政策敏感", "yin": "低敏感"},
+    {"name": "成本结构", "yang": "重营销获客成本", "yin": "口碑/自然流量"},
+    {"name": "现金流", "yang": "依赖融资输血", "yin": "自有现金流"}
+  ],
+  "entities": [
+    {"id": "D1", "name": "新东方", "values": ["yang", "yang", "yang", "yang", "yang", "yin"]},
+    {"id": "D2", "name": "好未来", "values": ["yang", "yang", "yang", "yang", "yang", "yin"]},
+    {"id": "D3", "name": "猿辅导", "values": ["yang", "yin", "yang", "yang", "yang", "yang"]},
+    {"id": "D4", "name": "高途(跟谁学)", "values": ["yang", "yang", "yang", "yang", "yang", "yin"]},
+    {"id": "D5", "name": "作业帮", "values": ["yang", "yin", "yang", "yang", "yang", "yang"]},
+    {"id": "D6", "name": "网易有道", "values": ["yang", "yang", "yin", "yang", "yin", "yang"]},
+    {"id": "D7", "name": "线下中小机构", "values": ["yang", "yin", "yang", "yang", "yin", "yang"]},
+    {"id": "D8", "name": "教材教辅出版商", "values": ["yang", "yin", "yin", "yang", "yin", "yin"]},
+    {"id": "D9", "name": "公立学校体系", "values": ["yin", "yin", "yin", "yin", "yin", "yin"]},
+    {"id": "D10", "name": "广告平台(腾讯/字节)", "values": ["yin", "yin", "yin", "yin", "yang", "yin"]},
+    {"id": "D11", "name": "职业教育(粉笔/中公)", "values": ["yin", "yang", "yin", "yang", "yang", "yin"]},
+    {"id": "D12", "name": "教培SaaS供应商", "values": ["yang", "yin", "yin", "yang", "yang", "yang"]},
+    {"id": "D13", "name": "教育监管政策", "values": ["yin", "yin", "yin", "yang", "yin", "yang"]}
+  ],
+  "relations": [],
+  "dependencies": [
+    ["D1", "D13"], ["D2", "D13"], ["D3", "D13"], ["D4", "D13"], ["D5", "D13"], ["D7", "D13"],
+    ["D12", "D1"], ["D8", "D1"], ["D10", "D4"], ["D10", "D3"]
+  ],
+  "seeds": ["D13"],
+  "fracture": ["D1", "D2", "D3", "D4", "D5", "D7", "D12"],
+  "fracture_notes": "种子为政策本身（面状直接冲击，类比自然灾害的'受击即断裂'）。断裂定义 = 主业功能性失效（关停/崩溃/主要客户群消失），非破产。"
+}

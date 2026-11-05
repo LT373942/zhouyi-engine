@@ -1,0 +1,36 @@
+{
+  "case": "俄乌战争欧洲能源危机（2022-02 回测）",
+  "event": "2022 年 2 月 24 日俄乌冲突爆发及俄气供应中断",
+  "modeling_notes": "历史回测案例，事件类型为地缘事件（补齐案例类型多样性）。以事发前公开信息建模：欧洲对俄气依赖度（德国约55%）、能源密集工艺的天然气原料属性、LNG短期替代能力有限——均为公开数据。断裂集为事后公开事实（以减产/停产计）：巴斯夫(路德维希港减产、部分产线关停、裁员)、欧洲化肥(大面积停产)、钢铁/铝冶炼(减产停产)、意大利玻璃陶瓷(停产)。匈牙利(谈判获俄气豁免继续供气)为外生干预幸存对照，欧洲电网(有序用电+重启煤电)、居民供暖(配给未断供)为部分受损边界对照。",
+  "dims": [
+    {"name": "俄气依赖", "yang": "高度依赖俄罗斯天然气", "yin": "低依赖/替代"},
+    {"name": "能源强度", "yang": "高能耗工艺", "yin": "低能耗"},
+    {"name": "替代弹性", "yang": "无短期替代", "yin": "可替代"},
+    {"name": "地缘暴露", "yang": "直接暴露于战区供应链", "yin": "间接"},
+    {"name": "储备", "yang": "储备不足", "yin": "储备充足"},
+    {"name": "定价传导", "yang": "成本无法转嫁", "yin": "可转嫁"}
+  ],
+  "entities": [
+    {"id": "E1", "name": "俄气供应体系(北溪/Gazprom)", "values": ["yin", "yin", "yang", "yang", "yin", "yang"]},
+    {"id": "E2", "name": "巴斯夫(德国化工)", "values": ["yang", "yang", "yang", "yin", "yang", "yin"]},
+    {"id": "E3", "name": "欧洲化肥(Yara/CF)", "values": ["yang", "yang", "yang", "yin", "yang", "yin"]},
+    {"id": "E4", "name": "钢铁/铝冶炼", "values": ["yang", "yang", "yang", "yin", "yang", "yin"]},
+    {"id": "E5", "name": "意大利玻璃/陶瓷", "values": ["yang", "yang", "yang", "yin", "yin", "yang"]},
+    {"id": "E6", "name": "欧洲电网(德国)", "values": ["yang", "yang", "yang", "yin", "yang", "yang"]},
+    {"id": "E7", "name": "LNG市场", "values": ["yin", "yang", "yin", "yin", "yin", "yin"]},
+    {"id": "E8", "name": "居民供暖", "values": ["yang", "yang", "yang", "yin", "yang", "yang"]},
+    {"id": "E9", "name": "德国汽车(线束暴露)", "values": ["yin", "yang", "yin", "yang", "yin", "yin"]},
+    {"id": "E10", "name": "法国核电", "values": ["yin", "yin", "yin", "yin", "yang", "yin"]},
+    {"id": "E11", "name": "中国光伏/热泵出口", "values": ["yin", "yin", "yin", "yin", "yin", "yang"]},
+    {"id": "E12", "name": "匈牙利(豁免谈判)", "values": ["yang", "yang", "yang", "yin", "yang", "yin"]},
+    {"id": "E13", "name": "绿色能源(风电光伏)", "values": ["yin", "yang", "yin", "yin", "yin", "yang"]}
+  ],
+  "relations": [],
+  "dependencies": [
+    ["E2", "E1"], ["E3", "E1"], ["E4", "E1"], ["E5", "E1"],
+    ["E6", "E1"], ["E8", "E1"], ["E12", "E1"]
+  ],
+  "seeds": ["E1"],
+  "fracture": ["E2", "E3", "E4", "E5"],
+  "fracture_notes": "种子为俄气供应体系（制裁与自断供导致供应中断）。能源密集工业群（化工/化肥/钢铁铝）为同构群；匈牙利同属该群但经豁免谈判幸存——外生干预改写结构命运的又一例。"
+}

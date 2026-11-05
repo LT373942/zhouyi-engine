@@ -123,7 +123,8 @@ def framework_signals(case):
 
 
 CASES = ["supply_chain", "nokia", "texas_freeze", "fukushima", "financial_2008",
-         "film_digital", "blockbuster", "chip_shortage"]
+         "film_digital", "blockbuster", "chip_shortage", "edu_double_reduction",
+         "europe_energy_2022"]
 
 if __name__ == "__main__":
     out = {}

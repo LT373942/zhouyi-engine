@@ -568,5 +568,147 @@
         "recall": 0.714
       }
     }
+  },
+  "双减监管冲击（2021-07 回测）": {
+    "depended_by": {
+      "picked": [
+        "D1",
+        "D13",
+        "D3",
+        "D4"
+      ],
+      "precision": 0.75,
+      "recall": 0.429
+    },
+    "pagerank": {
+      "picked": [
+        "D1",
+        "D10",
+        "D12",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D7",
+        "D8"
+      ],
+      "precision": 0.778,
+      "recall": 1.0
+    },
+    "betweenness": {
+      "picked": [
+        "D1",
+        "D3",
+        "D4"
+      ],
+      "precision": 1.0,
+      "recall": 0.429
+    },
+    "framework": {
+      "isomorphism": {
+        "picked": [
+          "D1",
+          "D2",
+          "D4"
+        ],
+        "precision": 1.0,
+        "recall": 0.429
+      },
+      "cascade": {
+        "picked": [
+          "D1",
+          "D10",
+          "D12",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D7",
+          "D8"
+        ],
+        "precision": 0.778,
+        "recall": 1.0
+      },
+      "combined": {
+        "picked": [
+          "D1",
+          "D10",
+          "D12",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D7",
+          "D8"
+        ],
+        "precision": 0.778,
+        "recall": 1.0
+      }
+    }
+  },
+  "俄乌战争欧洲能源危机（2022-02 回测）": {
+    "depended_by": {
+      "picked": [
+        "E1"
+      ],
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "pagerank": {
+      "picked": [
+        "E12",
+        "E2",
+        "E3",
+        "E4",
+        "E5",
+        "E6",
+        "E8"
+      ],
+      "precision": 0.571,
+      "recall": 1.0
+    },
+    "betweenness": {
+      "picked": [],
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "framework": {
+      "isomorphism": {
+        "picked": [
+          "E12",
+          "E2",
+          "E3",
+          "E4"
+        ],
+        "precision": 0.75,
+        "recall": 0.75
+      },
+      "cascade": {
+        "picked": [
+          "E12",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E8"
+        ],
+        "precision": 0.571,
+        "recall": 1.0
+      },
+      "combined": {
+        "picked": [
+          "E12",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E8"
+        ],
+        "precision": 0.571,
+        "recall": 1.0
+      }
+    }
   }
 }

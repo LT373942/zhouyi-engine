@@ -100,7 +100,8 @@ def fig2():
 import random
 
 CASE_KEYS = ["supply_chain", "nokia", "texas_freeze", "fukushima", "financial_2008",
-             "film_digital", "blockbuster", "chip_shortage"]
+             "film_digital", "blockbuster", "chip_shortage", "edu_double_reduction",
+             "europe_energy_2022"]
 LABEL = {"新能源车供应链（情景推演：假想代工危机）": "供应链",
          "诺基亚代际更替（2007 iPhone 发布回测）": "诺基亚",
          "德州寒潮（2021 年 2 月 Uri 风暴回测）": "德州寒潮",
@@ -108,7 +109,9 @@ LABEL = {"新能源车供应链（情景推演：假想代工危机）": "供应
          "2008 金融危机（2007-09 回测）": "金融危机",
          "数码摄影颠覆胶卷（2000-2012 回测）": "胶卷→数码",
          "流媒体颠覆实体租赁（2000-2010 回测）": "实体租赁",
-         "全球缺芯潮（2020-2022 回测）": "缺芯潮"}
+         "全球缺芯潮（2020-2022 回测）": "缺芯潮",
+         "双减监管冲击（2021-07 回测）": "双减",
+         "俄乌战争欧洲能源危机（2022-02 回测）": "能源危机"}
 
 
 def _baseline_mean(case):
